@@ -1,7 +1,25 @@
+import Loading from "@/common/Loading";
+import { createPayment } from "@/services/paymentService";
 import { toPersianNumbersWithComma } from "@/utils/toPersianNumbers";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 export default function CartSummary({ payDetail }) {
+  const queryClient = useQueryClient();
   const { totalOffAmount, totalPrice, totalGrossPrice } = payDetail;
+  const { isPending, mutateAsync } = useMutation({ mutationFn: createPayment });
+
+  const createPaymentHandler = async () => {
+    try {
+      const { message } = await mutateAsync();
+      toast.success(message);
+      queryClient.invalidateQueries({ queryKey: ["get-user"] });
+    } catch (error) {
+      if (error?.response?.data) {
+        toast.error(error.response.data.message);
+      }
+    }
+  };
 
   return (
     <div className="border px-2 py-4 rounded-xl">
@@ -18,7 +36,15 @@ export default function CartSummary({ payDetail }) {
         <span>مبلغ قابل پرداخت</span>
         <span>{toPersianNumbersWithComma(totalPrice)}</span>
       </div>
-      <button className="btn btn--primary w-full">ثبت سفارش</button>
+      <div>
+        {isPending ? (
+          <Loading />
+        ) : (
+          <button className="btn btn--primary w-full" onClick={createPaymentHandler}>
+            ثبت سفارش
+          </button>
+        )}
+      </div>
     </div>
   );
 }
