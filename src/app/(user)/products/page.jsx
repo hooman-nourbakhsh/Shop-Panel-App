@@ -4,6 +4,7 @@ import { getProducts } from "@/services/productService";
 import CategorySidebar from "./CategorySidebar";
 import { toLocalDateStringShort } from "@/utils/toLocalDate";
 import Link from "next/link";
+import AddToCart from "./[slug]/AddToCart";
 
 export default async function Products({ searchParams }) {
   //   const { products } = await getProducts(queryString.stringify(searchParams));
@@ -31,6 +32,7 @@ export default async function Products({ searchParams }) {
                   <Link className="text-primary-900 font-bold mb-4 block" href={`/products/${product.slug}`}>
                     مشاهده محصول
                   </Link>
+                  <AddToCart product={product} />
                 </div>
               );
             })}

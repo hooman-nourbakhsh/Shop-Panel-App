@@ -1,4 +1,5 @@
 import { getOneProdcutBySlug, getProducts } from "@/services/productService";
+import AddToCart from "./AddToCart";
 
 export const dynamic = "force-static"; // SSG or {cache : "force-cache"}
 export const dynamicParams = false;
@@ -20,9 +21,7 @@ export default async function ProductDetails({ params }) {
           <div className="bg-rose-500 px-2 py-0.5 rounded-xl text-white text-sm">{product.discount} %</div>
         </div>
       )}
-      <div>
-        <button className="btn btn--primary">اضافه کردن به سبد خرید</button>
-      </div>
+      <AddToCart product={product} />
     </div>
   );
 }
