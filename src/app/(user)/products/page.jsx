@@ -1,16 +1,21 @@
+import Link from "next/link";
+import { cookies } from "next/headers";
 import queryString from "query-string";
 import { getCategories } from "@/services/categoryService";
 import { getProducts } from "@/services/productService";
-import CategorySidebar from "./CategorySidebar";
+import { toStringCookies } from "@/utils/toStringCookies";
 import { toLocalDateStringShort } from "@/utils/toLocalDate";
-import Link from "next/link";
+import CategorySidebar from "./CategorySidebar";
 import AddToCart from "./[slug]/AddToCart";
+import LikeProduct from "./LikeProduct";
 
 export default async function Products({ searchParams }) {
   //   const { products } = await getProducts(queryString.stringify(searchParams));
   //   const { categories } = await getCategories();
 
-  const productsPromise = getProducts(queryString.stringify(searchParams));
+  const cookieStore = cookies();
+  const strCookies = toStringCookies(cookieStore);
+  const productsPromise = getProducts(queryString.stringify(searchParams), strCookies);
   const categoryPromise = getCategories();
   const [{ products }, { categories }] = await Promise.all([productsPromise, categoryPromise]);
 
@@ -32,6 +37,7 @@ export default async function Products({ searchParams }) {
                   <Link className="text-primary-900 font-bold mb-4 block" href={`/products/${product.slug}`}>
                     مشاهده محصول
                   </Link>
+                  <LikeProduct product={product} />
                   <AddToCart product={product} />
                 </div>
               );
