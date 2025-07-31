@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
-function AddToCart({ product }) {
+export default function AddToCart({ product }) {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { data } = useGetUser();
@@ -53,4 +53,3 @@ function AddToCart({ product }) {
     </div>
   );
 }
-export default AddToCart;
