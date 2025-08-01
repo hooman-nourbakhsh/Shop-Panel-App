@@ -23,7 +23,7 @@ const includesProductKey = [
 export default function editProductPage() {
   const router = useRouter();
   const { id } = useParams();
-  const { data, isPending: isLoadingProduct } = useGetProductById(id);
+  const { data, isLoading: isLoadingProduct } = useGetProductById(id);
   const { product } = data || {};
   const { data: categoryData } = useGetCategories();
   const { categories } = categoryData || {};
