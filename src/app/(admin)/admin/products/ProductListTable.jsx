@@ -1,9 +1,9 @@
-import { productListTableTHeads } from "@/constants/tableHeads";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { RiEdit2Line } from "react-icons/ri";
 import { HiEye, HiTrash } from "react-icons/hi";
+import { productListTableTHeads } from "@/constants/tableHeads";
 import { useRemoveProduct } from "@/hooks/useProducts";
 import { toPersianNumbers, toPersianNumbersWithComma } from "@/utils/toPersianNumbers";
 
@@ -17,7 +17,7 @@ function ProductListTable({ products }) {
       toast.success(message);
       queryClient.invalidateQueries({ queryKey: ["get-products"] });
     } catch (error) {
-      toast.error(error?.respone?.data?.message);
+      toast.error(error?.response?.data?.message);
     }
   };
   return (
