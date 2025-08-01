@@ -6,7 +6,7 @@ import { useGetCategories } from "@/hooks/useCategories";
 import { useAddProduct } from "@/hooks/useProducts";
 import ProductForm from "@/components/ProductForm";
 
-export default function addProductPage() {
+export default function AddProductPage() {
   const router = useRouter();
   const { isPending, mutateAsync } = useAddProduct();
   const { data } = useGetCategories();

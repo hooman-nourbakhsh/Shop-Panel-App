@@ -28,11 +28,15 @@ export default function Header() {
               پنل کاربر
             </Link>
           </li>
-          <li>
-            <Link className="block py-2" href="/admin">
-              پنل ادمین
-            </Link>
-          </li>
+          {user?.role === "ADMIN" ? (
+            <li>
+              <Link className="block py-2" href="/admin">
+                پنل ادمین
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
           <li>
             <Link className="block py-2" href="/cart">
               سبد خرید ({cart ? cart.payDetail.productIds.length : 0})

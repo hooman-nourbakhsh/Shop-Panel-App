@@ -20,7 +20,7 @@ const includesProductKey = [
   "imageLink",
 ];
 
-export default function editProductPage() {
+export default function EditProductPage() {
   const router = useRouter();
   const { id } = useParams();
   const { data, isLoading: isLoadingProduct } = useGetProductById(id);
